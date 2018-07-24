@@ -4,18 +4,39 @@ apply plugin: 'eclipse'
 version = '1.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
 //Get dependencies from Maven central repository
 repositories {
     mavenCentral()
     flatDir {
-       dirs 'lib'
-   }
-    
+        dirs 'lib'
+    }
 }
+
+
 //Project dependencies
-dependencies {
-	compile name: 'selenium-server-standalone-2.48.2'
+//dependencies {
+//	compile name: 'selenium-server-standalone-2.48.2'
+//}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.thoughtworks.gauge.gradle:gauge-gradle-plugin:+'
+    }
 }
+
+dependencies {
+    compile (
+            'org.seleniumhq.selenium:selenium-java:3.12.0'
+    )
+}
+
+
+
+
 
 sourceSets {
     main {
@@ -24,6 +45,7 @@ sourceSets {
         }
     }
 }
+
 jar {
     manifest {
         attributes("Implementation-Title": "Hello World",
@@ -32,6 +54,7 @@ jar {
     }
     from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
 }
+
 //create a single Jar with all dependencies
 task createJar(type: Jar) {
 	manifest {
