@@ -50,7 +50,8 @@ public class SeleniumMain {
    // Or we could just do this: 
    // ex.printStackTrace();
   }
-  DesiredCapabilities capability = DesiredCapabilities.firefox();
+  //DesiredCapabilities capability = DesiredCapabilities.firefox();
+  DesiredCapabilities capability = DesiredCapabilities.htmlUnit();
   WebDriver driver = new RemoteWebDriver(new URL("http://172.31.34.177:4444/wd/hub"), capability);
 
   // And now use this to visit the app
